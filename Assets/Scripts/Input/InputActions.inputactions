@@ -1,0 +1,82 @@
+{
+    "name": "Actions",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "4f38298a-72e1-4c92-9154-33006fc10e9f",
+            "actions": [
+                {
+                    "name": "Screen",
+                    "type": "Value",
+                    "id": "9b789e20-5662-442c-9b80-b9132f0c6c02",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "c42eabb2-8cb7-4c50-a9af-16839d3f74b3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5c8348c3-d4be-4ed3-827d-acc1d6b4833b",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "User",
+                    "action": "Screen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "111e7e30-3f6c-4a08-8985-b3b1e5189528",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "User",
+                    "action": "Screen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71c36f8a-b236-4855-9e99-fde4db8a99e6",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "User",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "300305f4-a65c-42c3-a614-ace64e84024d",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "User",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "User",
+            "bindingGroup": "User",
+            "devices": []
+        }
+    ]
+}
