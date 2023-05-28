@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class Eraser : MonoBehaviour
 {
-	[SerializeField] private Shader _eraseShader;
+	[SerializeField] private Material _eraseMaterial;
 	[SerializeField] private Material _brushMaterial;
     [SerializeField] private Camera _camera;
     [SerializeField] private InputService _inputService;
@@ -24,6 +24,7 @@ public class Eraser : MonoBehaviour
 	    _boundsSize = _spriteRenderer.sprite.bounds.size;
 	    _inputService.OnLineDrag += Scratch;
 	    _renderTexture = new RenderTexture((int)_imageSize.x, (int)_imageSize.y, 0, RenderTextureFormat.ARGB32);
+	    _renderTexture.Create();
 	    SetEraseMaterial();
 	    _eraseRenderer = new EraseRenderer(new RenderTargetIdentifier(_renderTexture), _brushMaterial, _imageSize, _brushSize);
     }
@@ -33,7 +34,7 @@ public class Eraser : MonoBehaviour
 
     private void SetEraseMaterial()
     {
-	    Material eraseMaterial = new Material(_eraseShader);
+	    Material eraseMaterial = new Material(_eraseMaterial);
 	    eraseMaterial.SetTexture(_maskTexture, _renderTexture);
 	    _spriteRenderer.sharedMaterial = eraseMaterial;
     }

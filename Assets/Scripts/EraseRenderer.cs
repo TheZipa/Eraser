@@ -41,7 +41,7 @@ namespace DefaultNamespace
                 count++;
             }
 
-            if (_positions.Count <= 1) return;
+            if (_positions.Count <= 0) return;
             _lineMesh.Clear(false);
             AddComplexLineToLineMesh();
             RenderMeshLine();
