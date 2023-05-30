@@ -7,6 +7,7 @@ public class Eraser : MonoBehaviour
 {
 	[SerializeField] private Material _eraseMaterial;
 	[SerializeField] private Material _brushMaterial;
+	[SerializeField] private Material _progressMaterial;
     [SerializeField] private Camera _camera;
     [SerializeField] private InputService _inputService;
     [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -14,6 +15,7 @@ public class Eraser : MonoBehaviour
 
     private readonly int _maskTexture = Shader.PropertyToID("_MaskTex");
     private EraseRenderer _eraseRenderer;
+    private EraseProgress _eraseProgress;
     private RenderTexture _renderTexture;
     private Vector2 _imageSize;
     private Vector2 _boundsSize;
@@ -21,12 +23,14 @@ public class Eraser : MonoBehaviour
     private void Start()
     {
 	    SetImageSize(_spriteRenderer.sprite.texture);
+	    _renderTexture = new RenderTexture((int) _imageSize.x, (int) _imageSize.y, 0, RenderTextureFormat.ARGB32);
 	    _boundsSize = _spriteRenderer.sprite.bounds.size;
-	    _inputService.OnLineDrag += Scratch;
-	    _renderTexture = new RenderTexture((int)_imageSize.x, (int)_imageSize.y, 0, RenderTextureFormat.ARGB32);
-	    _renderTexture.Create();
+	    _inputService.OnLineDrag += ScratchLine;
+	    _inputService.OnTouch += ScratchSingle;
 	    SetEraseMaterial();
 	    _eraseRenderer = new EraseRenderer(new RenderTargetIdentifier(_renderTexture), _brushMaterial, _imageSize, _brushSize);
+	    _eraseProgress = new EraseProgress(_eraseRenderer.GenerateClearMesh(), _progressMaterial, _renderTexture);
+	    _camera.Render();
     }
     
     private void SetImageSize(Texture imageTexture) =>
@@ -48,6 +52,9 @@ public class Eraser : MonoBehaviour
 	    return Vector2.Scale(Vector2.Scale(clickLocalPosition, lossyScale), pixelsPerInch);
     }
 
-    private void Scratch(Vector2 startScreenPosition, Vector2 endScreenPosition) =>
+    private void ScratchLine(Vector2 startScreenPosition, Vector2 endScreenPosition) =>
 	    _eraseRenderer.ScratchLine(GetScratchPosition(startScreenPosition), GetScratchPosition(endScreenPosition));
+
+    private void ScratchSingle(Vector2 screenPosition) =>
+	    _eraseRenderer.ScratchSingle(GetScratchPosition(screenPosition));
 }

@@ -7,6 +7,7 @@ namespace Input
 {
     public class InputService : MonoBehaviour
     {
+        public event Action<Vector2> OnTouch;
         public event Action<Vector2, Vector2> OnLineDrag;
         
         private InputActions _playerInput;
@@ -41,7 +42,9 @@ namespace Input
             {
                 yield return null;
                 Vector2 newScreenPosition = GetScreenPosition();
-                OnLineDrag?.Invoke(newScreenPosition, _lastPosition);
+                if(newScreenPosition == _lastPosition) OnTouch?.Invoke(newScreenPosition);
+                else OnLineDrag?.Invoke(newScreenPosition, _lastPosition);
+                    
                 _lastPosition = newScreenPosition;
             }
         }
